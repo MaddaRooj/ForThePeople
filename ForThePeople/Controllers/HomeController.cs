@@ -20,6 +20,7 @@ namespace ForThePeople.Controllers
         {
             _config = config;
         }
+
         public async Task<IActionResult> Index()
         {
             var elections = await GetElectionsAsync();
