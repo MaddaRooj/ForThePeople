@@ -12,6 +12,8 @@ namespace ForThePeople.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly string _houseUrl = "";
+        private readonly string _senateUrl = "";
         private readonly string _repsUrl = "https://www.googleapis.com/civicinfo/v2/representatives?address=nashville&key=";
         private readonly string _electionsUrl = "https://www.googleapis.com/civicinfo/v2/elections?key=";
         private readonly IConfiguration _config;
@@ -24,7 +26,7 @@ namespace ForThePeople.Controllers
         public async Task<IActionResult> Index()
         {
             var elections = await GetElectionsAsync();
-            return View();
+            return View(elections);
         }
 
         public IActionResult Privacy()
