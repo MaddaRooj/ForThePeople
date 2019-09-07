@@ -20,6 +20,10 @@ namespace ForThePeople.Models
         public string Title { get; set; }
         public string First_Name { get; set; }
         public string Last_Name { get; set; }
+        public string Full_Name
+        {
+            get { return $"{First_Name} {Last_Name}"; }
+        }
         public DateTime Date_of_Birth { get; set; }
         public string Chamber { get; set; }
         public string State { get; set; }

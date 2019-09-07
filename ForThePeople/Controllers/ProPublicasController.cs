@@ -28,8 +28,8 @@ namespace ForThePeople.Controllers
         // GET: ProPublicas
         public async Task<IActionResult> Index()
         {
-            var senators = await GetAllSenatorsAsync();
-            return View(senators);
+            var senate = await GetAllSenatorsAsync();
+            return View(senate.Results.First().Members);
         }
 
         public async Task<IActionResult> GetSenator()
