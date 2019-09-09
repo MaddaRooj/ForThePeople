@@ -1,0 +1,102 @@
+﻿@model IEnumerable<ForThePeople.Models.Member>
+@*@model PagedList.IPagedList<IEnumerable<ForThePeople.Models.Member>>*@
+@*@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by Name or State: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Image
+            </th>
+            <th>
+                Title
+                @*@Html.DisplayNameFor(model => model.Title)*@
+            </th>
+            <th>
+                @Html.ActionLink("Full Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                @*@Html.DisplayNameFor(model => model.Full_Name)*@
+            </th>
+            <th>
+                Party
+                @*@Html.DisplayNameFor(model => model.Party)*@
+            </th>
+            <th>
+                @Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StateSortParm })
+            </th>
+            <th>
+                Seniority
+                @*@Html.DisplayNameFor(model => model.Seniority)*@
+            </th>
+            <th>
+                Phone
+                @*@Html.DisplayNameFor(model => model.Phone)*@
+            </th>
+            <th>
+                DOB
+                @*@Html.DisplayNameFor(model => model.Date_of_Birth)*@
+            </th>
+            <th>
+                Contact
+                @*@Html.DisplayNameFor(model => model.Url)*@
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img width="225" height="275" src="https://theunitedstates.io/images/congress/225x275/A000360.jpg" />
+                    @*@Html.DisplayFor(modelItem => item.Id)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Full_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Party)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seniority)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_of_Birth)
+                </td>
+                <td>
+                    <a href="@Html.DisplayFor(modelItem => item.Url)">@Html.DisplayFor(modelItem => item.Url)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@

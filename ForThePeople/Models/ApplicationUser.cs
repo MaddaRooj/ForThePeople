@@ -30,6 +30,6 @@ namespace ForThePeople.Models
 
         public string PoliticalParty { get; set; }
 
-        public ICollection<Note> Notes { get; set; }
+        //public ICollection<Note> Notes { get; set; }
     }
 }
