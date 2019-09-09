@@ -34,6 +34,6 @@ namespace ForThePeople.Models
         public string Gender { get; set; }
         public string Twitter_Account { get; set; }
         public string Facebook_Account { get; set; }
-        public string Current_Party { get; set; }
+        public string Party { get; set; }
     }
 }
