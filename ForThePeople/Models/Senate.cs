@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace ForThePeople.Models
 {
-    public class Senator
+    public class Senate
     {
         [Key]
         public int Id { get; set; }
         public string Status { get; set; }
         public List<Result> Results { get; set; }
     }
-
+    public class Result
+    {
+        [Key]
+        public int Id { get; set; }
+        public List<Member> Members { get; set; }
+    }
     public class Member
     {
         public string Id { get; set; }
@@ -24,11 +29,12 @@ namespace ForThePeople.Models
         {
             get { return $"{First_Name} {Last_Name}"; }
         }
+        [DataType(DataType.Date)]
         public DateTime Date_of_Birth { get; set; }
         public string Chamber { get; set; }
         public string State { get; set; }
         public int Seniority { get; set; }
-        public int District { get; set; }
+        public string District { get; set; }
         public string Phone { get; set; }
         public string Url { get; set; }
         public string Gender { get; set; }
