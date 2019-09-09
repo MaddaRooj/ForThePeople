@@ -16,7 +16,7 @@ namespace ForThePeople.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly string _allSenatorsUrl = "https://api.propublica.org/congress/v1/116/senate/members.json";
-        private readonly string _senatorUrl = "https://api.propublica.org/congress/v1/members/K000388.json";
+        private readonly string _senatorUrl = "https://api.propublica.org/congress/v1/members/A000360.json";
         private readonly IConfiguration _config;
 
         public ProPublicasController(ApplicationDbContext context, IConfiguration config)
@@ -46,7 +46,7 @@ namespace ForThePeople.Controllers
         //        return NotFound();
         //    }
 
-        //    var proPublica = await _context.ProPublica
+        //    var proPublica = await GetSenatorAsync().Result
         //        .FirstOrDefaultAsync(m => m.Id == id);
         //    if (proPublica == null)
         //    {
