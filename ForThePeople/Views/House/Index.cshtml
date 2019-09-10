@@ -57,8 +57,9 @@
         {
             <tr>
                 <td>
-                    <img width="225" height="275" src="@Url.Content("https://theunitedstates.io/images/congress/225x275/" + item.Id +".jpg")" alt="RepImage" />
-                    @*@Html.DisplayFor(modelItem => item.Id)*@
+                    <object data="@Url.Content("https://theunitedstates.io/images/congress/225x275/" + item.Id +".jpg")">
+                        <img width="225" height="225" src="~/img/default_user.jpg" alt="RepImage" />
+                    </object>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
