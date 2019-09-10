@@ -1,21 +1,23 @@
 ﻿@model IEnumerable<ForThePeople.Models.Member>
 @*@model PagedList.IPagedList<IEnumerable<ForThePeople.Models.Member>>*@
 @*@using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Senate</h1>
+<br />
 
 @using (Html.BeginForm())
 {
     <p>
-        Find by Name or State: @Html.TextBox("SearchString")
+        Find Senator by Name or State: @Html.TextBox("SearchString")
         <input type="submit" value="Search" />
     </p>
 }
+<br />
 
 <table class="table">
     <thead>
@@ -61,8 +63,7 @@
         {
             <tr>
                 <td>
-                    <img width="225" height="275" src="https://theunitedstates.io/images/congress/225x275/A000360.jpg" />
-                    @*@Html.DisplayFor(modelItem => item.Id)*@
+                    <img width="225" height="275" src="@Url.Content("https://theunitedstates.io/images/congress/225x275/" + item.Id +".jpg")" alt="RepImage" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -96,7 +97,7 @@
     </tbody>
 </table>
 @*<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
