@@ -7,15 +7,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Senate</h1>
+<br />
 
 @using (Html.BeginForm())
 {
     <p>
-        Find by Name or State: @Html.TextBox("SearchString")
+        Find Senator by Name or State: @Html.TextBox("SearchString")
         <input type="submit" value="Search" />
     </p>
 }
+<br />
 
 <table class="table">
     <thead>
@@ -62,7 +64,7 @@
             <tr>
                 <td>
                     <img width="225" height="275" src="https://theunitedstates.io/images/congress/225x275/A000360.jpg" />
-                    @*@Html.DisplayFor(modelItem => item.Id)*@
+                    @*@Html.DisplayFor(modelItem => item.Id)*@                  
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)

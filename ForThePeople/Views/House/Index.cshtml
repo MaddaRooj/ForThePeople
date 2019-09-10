@@ -4,15 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>House of Representatives</h1>
+<br />
 
 @using (Html.BeginForm())
 {
     <p>
-        Find by name: @Html.TextBox("SearchString")
+        Find Representative by Name or State: @Html.TextBox("SearchString")
         <input type="submit" value="Search" />
     </p>
 }
+<br />
 
     <table class="table">
         <thead>
