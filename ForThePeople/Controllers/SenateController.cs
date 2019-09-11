@@ -78,9 +78,10 @@ namespace ForThePeople.Controllers
                     break;
             }
 
-            //int pageSize = 15;
-            //int pageNumber = (page ?? 1);
-            return View(members);
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+            //return View(members);
+            return View(members.ToPagedList(pageNumber, pageSize));
         }
 
         private async Task<Senate> GetAllSenatorsAsync()

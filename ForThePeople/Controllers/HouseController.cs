@@ -9,6 +9,7 @@ using ForThePeople.Data;
 using ForThePeople.Models;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
+using X.PagedList;
 
 namespace ForThePeople.Controllers
 {
@@ -25,13 +26,27 @@ namespace ForThePeople.Controllers
             _config = config;
         }
 
-        // GET: Senate
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        // GET: House of Representatives
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            //TEST
+            ViewBag.CurrentSort = sortOrder;
+
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.StateSortParm = sortOrder == "State" ? "state_desc" : "State";
 
             var senate = await GetAllHouseMembersAsync();
+
+            //TEST
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
 
             var members = from m in senate.Results.First().Members
                           select m;
@@ -58,31 +73,12 @@ namespace ForThePeople.Controllers
                     members = members.OrderBy(m => m.Last_Name);
                     break;
             }
-            return View(members);
+
+            int pageSize = 50;
+            int pageNumber = (page ?? 1);
+            //return View(members);
+            return View(members.ToPagedList(pageNumber, pageSize));
         }
-
-        //public async Task<IActionResult> GetSenator()
-        //{
-        //    var senator = await GetSenatorAsync();
-        //    return View(senator);
-        //}
-
-        ////GET: ProPublicas/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var proPublica = await GetSenatorAsync().Result
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (proPublica == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(proPublica);
-        //}
 
         private async Task<House> GetAllHouseMembersAsync()
         {
@@ -102,6 +98,23 @@ namespace ForThePeople.Controllers
                 return null;
             }
         }
+
+        ////GET: ProPublicas/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var proPublica = await GetSenatorAsync().Result
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (proPublica == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(proPublica);
+        //}
 
         //private async Task<ProPublica> GetSenatorAsync()
         //{
