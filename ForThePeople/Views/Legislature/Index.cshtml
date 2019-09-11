@@ -1,0 +1,110 @@
+﻿@model IEnumerable<ForThePeople.Models.Bill>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Current Legislature</h1>
+<hr />
+<br />
+
+<p>
+    @*<a asp-action="Create">Create New</a>*@
+</p>
+@foreach (var item in Model)
+{
+    <div class="card mb-5" style="border: 1px #868983 solid">
+        <div class="card-header" style="background-color: #E8D7BD">
+            <span style="font-size: 20px">
+                Date of Introduction: @Html.DisplayFor(modelItem => item.Introduced_Date)
+            </span>
+            <br />
+            <br />
+            <span style="font-size: 20px; font-weight: 600">
+                Title:
+            </span>
+            <br />
+            <span style="font-size: 20px">
+                @Html.DisplayFor(modelItem => item.Short_Title)
+            </span>
+        </div>
+        <div class="card-body" style="background-color: #EFEFEF">
+            <p>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </p>
+            <p>
+                <span style="font-weight: 600">
+                    Sponsored By:
+                </span>
+                @Html.DisplayFor(modelItem => item.Sponsor_Title)
+                @Html.DisplayFor(modelItem => item.Sponsor_Name)
+            </p>
+            <p>
+                <span style="font-weight:600">
+                    Sponsor Party:
+                </span>
+                @if (item.Sponsor_Party == "D")
+                {
+                    <span>
+                        Democrat
+                    </span>
+                }
+                else if (item.Sponsor_Party == "R")
+                {
+                    <span>
+                        Republican
+                    </span>
+                }
+                else
+                {
+                    <span>
+                        Independent
+                    </span>
+                }
+            </p>
+            <p>
+                <span style="font-weight: 600">
+                    Sponsor State:
+                </span>
+                @Html.DisplayFor(modelItem => item.Sponsor_State)
+            </p>
+            <p>
+                <span style="font-weight: 600">
+                    Subject:
+                </span>
+                @Html.DisplayFor(modelItem => item.Primary_Subject)
+            </p>
+            @if(item.Last_Vote != null)
+            {
+                <p>
+                    <span style="font-weight: 600">
+                        Last Vote:
+                    </span>
+                    @Html.DisplayFor(modelItem => item.Last_Vote)
+                </p>
+            }
+            <p>
+                <span style="font-weight: 600">
+                    Latest Major Action:
+                </span>
+                @Html.DisplayFor(modelItem => item.Latest_Major_Action)
+            </p>
+            <p>
+                <span style="font-weight: 600">
+                    Latest Major Action Date:
+                </span>
+                @Html.DisplayFor(modelItem => item.Latest_Major_Action_Date)
+            </p>
+            <p>
+                <span style="font-weight: 600">
+                    Gov Track Link:
+                </span>
+                <a href="@item.Govtrack_Url">
+                    @Html.DisplayFor(modelItem => item.Govtrack_Url)
+                </a>
+            </p>
+        </div>
+    </div>
+    <hr />
+}
+                

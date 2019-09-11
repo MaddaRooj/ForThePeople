@@ -9,7 +9,7 @@ using ForThePeople.Data;
 using ForThePeople.Models;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
-using PagedList;
+using X.PagedList;
 
 namespace ForThePeople.Controllers
 {
@@ -17,7 +17,6 @@ namespace ForThePeople.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly string _allSenatorsUrl = "https://api.propublica.org/congress/v1/116/senate/members.json";
-        //private readonly string _senatorUrl = "https://api.propublica.org/congress/v1/members/A000360.json";
         private readonly IConfiguration _config;
 
         public SenateController(ApplicationDbContext context, IConfiguration config)
@@ -78,9 +77,10 @@ namespace ForThePeople.Controllers
                     break;
             }
 
-            //int pageSize = 15;
-            //int pageNumber = (page ?? 1);
-            return View(members);
+            int pageSize = 20;
+            int pageNumber = (page ?? 1);
+            //return View(members);
+            return View(members.ToPagedList(pageNumber, pageSize));
         }
 
         private async Task<Senate> GetAllSenatorsAsync()

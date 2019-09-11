@@ -18,6 +18,7 @@ namespace ForThePeople.Models
         [Key]
         public int Id { get; set; }
         public List<Member> Members { get; set; }
+        public List<Bill> Bills { get; set; }
     }
     public class Member
     {
