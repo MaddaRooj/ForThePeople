@@ -4,94 +4,118 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>New Legislature</h1>
+<hr />
+<br />
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @*<a asp-action="Create">Create New</a>*@
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                Bill Id
-                @*@Html.DisplayNameFor(model => model.Title)*@
-            </th>
-            <th>
-                Summary
-                @*@Html.ActionLink("Full Name", "Index", new { sortOrder = ViewBag.NameSortParm })*@
-            </th>
-            <th>
-                Sponsor
-                @*@Html.DisplayNameFor(model => model.Party)*@
-            </th>
-            <th>
-                Sponsor Party
-                @*@Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StateSortParm })*@
-            </th>
-            <th>
-                Sponsor State
-                @*@Html.DisplayNameFor(model => model.District)*@
-            </th>
-            <th>
-                Introduced Date
-                @*@Html.DisplayNameFor(model => model.Seniority)*@
-            </th>
-            <th>
-                Last Vote Date
-                @*@Html.DisplayNameFor(model => model.Phone)*@
-            </th>
-            <th>
-                Primary Subject
-                @*@Html.DisplayNameFor(model => model.Date_of_Birth)*@
-            </th>
-            <th>
-                Latest Action
-                @*@Html.DisplayNameFor(model => model.Url)*@
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>                   
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Bill_Id)
-                </td>
-                <td>
+@foreach (var item in Model)
+{
+    <div class="card mb-5" style="border: 1px #868983 solid">
+        <div class="card-header" style="background-color: #E8D7BD">
+            @Html.DisplayFor(modelItem => item.Title)
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>
                     @Html.DisplayFor(modelItem => item.Summary)
-                </td>
-                <td>
+                </p>
+                <p>
                     @Html.DisplayFor(modelItem => item.Sponsor_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sponsor_Party)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sponsor_State)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Introduced_Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Last_Vote)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Primary_Subject)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Latest_Major_Action)
-                    @*<a href="@Html.DisplayFor(modelItem => item.Url)">@Html.DisplayFor(modelItem => item.Url)</a>*@
-                </td>
-                <td>                    
-                    <a asp-action="Details" asp-route-id="@item.Bill_Id">Details</a>
-                </td>
+                </p>
+                <footer class="blockquote-footer">
+                    Someone famous in <cite title="Source Title">Source Title</cite>
+                </footer>
+            </blockquote>
+        </div>
+    </div>
+    <hr />
+}
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Bill Id
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    Summary
+                    @Html.ActionLink("Full Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </th>
+                <th>
+                    Sponsor
+                    @Html.DisplayNameFor(model => model.Party)
+                </th>
+                <th>
+                    Sponsor Party
+                    @Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StateSortParm })
+                </th>
+                <th>
+                    Sponsor State
+                    @Html.DisplayNameFor(model => model.District)
+                </th>
+                <th>
+                    Introduced Date
+                    @Html.DisplayNameFor(model => model.Seniority)
+                </th>
+                <th>
+                    Last Vote Date
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    Primary Subject
+                    @Html.DisplayNameFor(model => model.Date_of_Birth)
+                </th>
+                <th>
+                    Latest Action
+                    @Html.DisplayNameFor(model => model.Url)
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bill_Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Summary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sponsor_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sponsor_Party)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sponsor_State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Introduced_Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Last_Vote)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Primary_Subject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Latest_Major_Action)
+                        <a href="@Html.DisplayFor(modelItem => item.Url)">@Html.DisplayFor(modelItem => item.Url)</a>
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Bill_Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

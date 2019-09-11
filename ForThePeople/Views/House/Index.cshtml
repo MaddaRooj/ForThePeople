@@ -1,8 +1,5 @@
 ﻿@*@model IEnumerable<ForThePeople.Models.Member>*@
 @model X.PagedList.IPagedList<ForThePeople.Models.Member>
-@using X.PagedList.Mvc.Core;
-@using X.PagedList;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewData["Title"] = "Index";
@@ -107,5 +104,12 @@
 </table>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+<hr />
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        @for (var i = 0; i < Model.PageCount; i++)
+        {
+            <li class="page-item"><a class="page-link" href="?page=@(i+1)">@(i+1)</a></li>
+        }
+    </ul>
+</nav>

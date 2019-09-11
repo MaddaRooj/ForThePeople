@@ -17,7 +17,6 @@ namespace ForThePeople.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly string _allHouseUrl = "https://api.propublica.org/congress/v1/116/house/members.json";
-        //private readonly string _oneMemberUrl = "https://api.propublica.org/congress/v1/members/A000360.json";
         private readonly IConfiguration _config;
 
         public HouseController(ApplicationDbContext context, IConfiguration config)
@@ -74,7 +73,7 @@ namespace ForThePeople.Controllers
                     break;
             }
 
-            int pageSize = 50;
+            int pageSize = 30;
             int pageNumber = (page ?? 1);
             //return View(members);
             return View(members.ToPagedList(pageNumber, pageSize));
