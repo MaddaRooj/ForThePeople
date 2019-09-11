@@ -19,6 +19,7 @@ namespace ForThePeople.Models
         public string Bill_Id { get; set; }
         public string Title { get; set; }
         public string Short_Title { get; set; }
+        public string Sponsor_Title { get; set; }
         public string Sponsor_Name { get; set; }
         public string Sponsor_State { get; set; }
         public string Sponsor_Party { get; set; }
