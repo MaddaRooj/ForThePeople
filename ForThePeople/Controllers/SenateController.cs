@@ -58,6 +58,7 @@ namespace ForThePeople.Controllers
             {
                 members = members.Where(m => m.Last_Name.Contains(searchString)
                                        || m.First_Name.Contains(searchString)
+                                       || m.Full_Name.Contains(searchString)
                                        || m.State.Contains(searchString));
             }
 
