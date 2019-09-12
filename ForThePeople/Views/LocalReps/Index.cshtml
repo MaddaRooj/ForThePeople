@@ -46,43 +46,33 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Officials)
+        @foreach (var item in Model.Offices)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                <td width="150">
+                    @Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Name)
                 </td>
                 <td>
-                    @if (item.Party == "Unknown")
-                    {
-                        <p>
-                            N/A
-                        </p>
-                    }
-                    else
-                    {
-
-                        @Html.DisplayFor(modelItem => item.Party)
-                    }
+                    @Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Party)
+                </td>
+                <td width="150">
+                    @Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Phones[0])
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Phones[0])
-                </td>
-                <td>
-                    <a href="@Html.DisplayFor(modelItem=>item.Urls[0])">
-                        @Html.DisplayFor(modelItem => item.Urls[0])
+                    <a href="@Html.DisplayFor(modelItem=>modelItem.Officials[item.OfficialIndices[0]].Urls[0])">
+                        @Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Urls[0])
                     </a>
                 </td>
                 <td>
-                    <a href="mailto:@Html.DisplayFor(modelItem => item.Emails[0])">
-                        @Html.DisplayFor(modelItem => item.Emails[0])
+                    <a href="mailto:@Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Emails[0])">
+                        @Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Emails[0])
                     </a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @*<a asp-action="Details" asp-route-id="@item.Id">Details</a>*@
                 </td>
             </tr>
         }

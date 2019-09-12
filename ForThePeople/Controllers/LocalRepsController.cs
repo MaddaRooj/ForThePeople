@@ -15,7 +15,7 @@ namespace ForThePeople.Controllers
     public class LocalRepsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly string _allLocalRepsUrl = "https://www.googleapis.com/civicinfo/v2/representatives?address=Nashville%2C%20Tennessee&key=AIzaSyCt2l4J5up5wGSGMhrVGPgqDGPsyye69H0";
+        private readonly string _allLocalRepsUrl = "https://www.googleapis.com/civicinfo/v2/representatives?address=Nashville%2C%20Tennessee&key=";
         private readonly IConfiguration _config;
 
         public LocalRepsController(ApplicationDbContext context, IConfiguration config)
@@ -33,8 +33,8 @@ namespace ForThePeople.Controllers
 
         private async Task<LocalRep> GetAllLocalRepsAsync()
         {
-            //var key = _config["ApiKeys:CongressApi"];
-            var url = $"{_allLocalRepsUrl}";
+            var key = _config["ApiKeys:GoogleCivicApi"];
+            var url = $"{_allLocalRepsUrl}{key}";
             var client = new HttpClient();
             //client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
             var response = await client.GetAsync(url);

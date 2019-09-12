@@ -19,7 +19,7 @@ namespace ForThePeople.Models
         [Key]
         public string DivisionId { get; set; }
         public string Name { get; set; }
-        public List<string> OfficialIndices { get; set; }
+        public List<int> OfficialIndices { get; set; }
     }
 
     public class Official
