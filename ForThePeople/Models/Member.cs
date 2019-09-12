@@ -25,6 +25,7 @@ namespace ForThePeople.Models
         public string District { get; set; }
         public string Phone { get; set; }
         public string Url { get; set; }
+        public string Contact_Form { get; set; }
         public string Gender { get; set; }
         public string Twitter_Account { get; set; }
         public string Facebook_Account { get; set; }
