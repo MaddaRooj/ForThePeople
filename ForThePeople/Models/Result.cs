@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ForThePeople.Models
 {
-    public class Senate
+    public class Result
     {
         [Key]
         public int Id { get; set; }
-        public string Status { get; set; }
-        public List<Result> Results { get; set; }
+        public List<Member> Members { get; set; }
+        public List<Bill> Bills { get; set; }
     }
 }

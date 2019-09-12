@@ -1,0 +1,90 @@
+﻿@model ForThePeople.Models.LocalRep
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Find your Local Representatives</h1>
+<br />
+
+@using (Html.BeginForm())
+{
+    <p>
+        Enter your City and State: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Office
+                @*@Html.DisplayNameFor(model => model.Title)*@
+            </th>
+            <th>
+                Full Name
+                @*@Html.ActionLink("Full Name", "Index", new { sortOrder = ViewBag.NameSortParm })*@
+            </th>
+            <th>
+                Party
+                @*@Html.DisplayNameFor(model => model.Party)*@
+            </th>
+            <th>
+                Phone
+                @*@Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StateSortParm })*@
+            </th>
+            <th>
+                Info
+                @*@Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StateSortParm })*@
+            </th>
+            <th>
+                Contact
+                @*@Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StateSortParm })*@
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Officials)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @if (item.Party == "Unknown")
+                    {
+                        <p>
+                            N/A
+                        </p>
+                    }
+                    else
+                    {
+
+                        @Html.DisplayFor(modelItem => item.Party)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phones[0])
+                </td>
+                <td>
+                    <a href="@Html.DisplayFor(modelItem=>item.Urls[0])">
+                        @Html.DisplayFor(modelItem => item.Urls[0])
+                    </a>
+                </td>
+                <td>
+                    <a href="mailto:@Html.DisplayFor(modelItem => item.Emails[0])">
+                        @Html.DisplayFor(modelItem => item.Emails[0])
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
