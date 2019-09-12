@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Current Legislature</h1>
+<h1 style="font-family:'EB Garamond', serif; font-weight: 500">Current Legislature</h1>
 <hr />
 <br />
 
@@ -14,21 +14,21 @@
 @foreach (var item in Model)
 {
     <div class="card mb-5" style="border: 1px #868983 solid">
-        <div class="card-header" style="background-color: #E8D7BD">
-            <span style="font-size: 20px">
+        <div class="card-header" style="background-color: #E8D7BD; font-family:'EB Garamond';">
+            <span style="font-size: 24px">
                 Date of Introduction: @Html.DisplayFor(modelItem => item.Introduced_Date)
             </span>
             <br />
             <br />
-            <span style="font-size: 20px; font-weight: 600">
+            <span style="font-size: 24px; font-weight: 600">
                 Title:
             </span>
             <br />
-            <span style="font-size: 20px">
+            <span style="font-size: 24px">
                 @Html.DisplayFor(modelItem => item.Short_Title)
             </span>
         </div>
-        <div class="card-body" style="background-color: #EFEFEF">
+        <div class="card-body" style="background-color: #EDEDED; font-size: 20px; font-family:'EB Garamond'">
             <p>
                 @Html.DisplayFor(modelItem => item.Summary)
             </p>

@@ -8,7 +8,7 @@
 <h1>House of Representatives</h1>
 <br />
 
-@using (Html.BeginForm("Index", "Member", FormMethod.Get))
+@using (Html.BeginForm())
 {
     <p>
         Find Representative by Name or State: @Html.TextBox("SearchString")
@@ -64,7 +64,7 @@
         {
             <tr>
                 <td>
-                    <object data="@Url.Content("https://theunitedstates.io/images/congress/225x275/" + item.Id +".jpg")">
+                    <object data="@Url.Content("https://theunitedstates.io/images/congress/225x275/" + item.Id + ".jpg")">
                         <img width="225" height="225" src="~/img/default_user.jpg" alt="RepImage" />
                     </object>
                 </td>
@@ -109,7 +109,7 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     <ul class="pagination">
         @for (var i = 0; i < Model.PageCount; i++)
         {
-            <li class="page-item"><a class="page-link" href="?page=@(i+1)">@(i+1)</a></li>
+            <li class="page-item"><a class="page-link" href="?page=@(i+1)">@(i + 1)</a></li>
         }
     </ul>
 </nav>

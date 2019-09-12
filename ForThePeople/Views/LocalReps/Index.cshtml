@@ -1,0 +1,74 @@
+﻿@model ForThePeople.Models.LocalRep
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Find your Local Representatives</h1>
+<br />
+
+@using (Html.BeginForm())
+{
+    <p>
+        Enter your City and State: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Office
+            </th>
+            <th>
+                Full Name
+            </th>
+            <th>
+                Party
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Info
+            </th>
+            <th>
+                Contact
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Offices)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td width="150">
+                    @Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Party)
+                </td>
+                <td width="150">
+                    @Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Phones[0])
+                </td>
+                <td>
+                    <a href="@Html.DisplayFor(modelItem=>modelItem.Officials[item.OfficialIndices[0]].Urls[0])">
+                        @Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Urls[0])
+                    </a>
+                </td>
+                <td>
+                    <a href="mailto:@Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Emails[0])">
+                        @Html.DisplayFor(modelItem => modelItem.Officials[item.OfficialIndices[0]].Emails[0])
+                    </a>
+                </td>
+                <td>
+                    @*<a asp-action="Details" asp-route-id="@item.Id">Details</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
