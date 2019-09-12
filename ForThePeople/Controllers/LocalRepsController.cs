@@ -36,7 +36,6 @@ namespace ForThePeople.Controllers
             var key = _config["ApiKeys:GoogleCivicApi"];
             var url = $"{_allLocalRepsUrl}{key}";
             var client = new HttpClient();
-            //client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
             var response = await client.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
