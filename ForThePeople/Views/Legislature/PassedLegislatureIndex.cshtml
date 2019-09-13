@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 style="font-family:'EB Garamond', serif; font-weight: 500">Current Legislature</h1>
+<h1 style="font-family:'EB Garamond', serif; font-weight: 500">Recently Passed Legislature</h1>
 <hr />
 <br />
 
 <p>
-    <a asp-action="PassedLegislatureIndex">Passed Legislature</a> |
+    <a asp-action="Index">Current Legislature</a> |
     <a asp-action="VetoedLegislatureIndex">Vetoed Legislature</a>
 </p>
 @foreach (var item in Model)
@@ -75,7 +75,7 @@
                 </span>
                 @Html.DisplayFor(modelItem => item.Primary_Subject)
             </p>
-            @if(item.Last_Vote != null)
+            @if (item.Last_Vote != null)
             {
                 <p>
                     <span style="font-weight: 600">
@@ -108,4 +108,3 @@
     </div>
     <hr />
 }
-                
