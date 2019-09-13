@@ -15,7 +15,7 @@ namespace ForThePeople.Controllers
     public class LocalRepsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly string _allLocalRepsUrl = "https://www.googleapis.com/civicinfo/v2/representatives?address=Nashville%2C%20Tennessee&key=";
+        private readonly string _allLocalRepsUrl = "https://www.googleapis.com/civicinfo/v2/representatives?address=";
         private readonly IConfiguration _config;
 
         public LocalRepsController(ApplicationDbContext context, IConfiguration config)
@@ -26,17 +26,25 @@ namespace ForThePeople.Controllers
 
         // GET: LocalReps
         // Add search string to index which will pass into GetAllLocalRepsAsync()
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var localReps = await GetAllLocalRepsAsync();
+            var localReps = await GetAllLocalRepsAsync(searchString);
             return View(localReps);
         }
 
         // searchString will in theory alter the api get method to include the location in the url
-        private async Task<LocalRep> GetAllLocalRepsAsync()
+        private async Task<LocalRep> GetAllLocalRepsAsync(string searchString)
         {
             var key = _config["ApiKeys:GoogleCivicApi"];
-            var url = $"{_allLocalRepsUrl}{key}";
+            if (searchString == null)
+            {
+                searchString = "Nashville";
+            }
+            else
+            {
+                searchString = searchString;
+            }
+            var url = $"{_allLocalRepsUrl}{searchString}&key={key}";
             var client = new HttpClient();
             var response = await client.GetAsync(url);
 
