@@ -310,5 +310,7 @@ namespace ForThePeople.Data
                 }
             );
         }
+
+        public DbSet<ForThePeople.Models.Legislature> Legislature { get; set; }
     }
 }

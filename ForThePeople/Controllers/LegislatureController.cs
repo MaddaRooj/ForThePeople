@@ -16,6 +16,8 @@ namespace ForThePeople.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly string _allIntroducedLegislatureUrl = "https://api.propublica.org/congress/v1/116/house/bills/active.json";
+        private readonly string _allPassedLegislatureUrl = "https://api.propublica.org/congress/v1/116/house/bills/passed.json";
+        private readonly string _allVetoedLegislatureUrl = "https://api.propublica.org/congress/v1/116/house/bills/vetoed.json";
         private readonly IConfiguration _config;
 
         public LegislatureController(ApplicationDbContext context, IConfiguration config)
@@ -32,11 +34,67 @@ namespace ForThePeople.Controllers
                           select b;
             return View(bills);
         }
+        
+        // GET: Legislature
+        public async Task<IActionResult> PassedLegislatureIndex()
+        {
+            var legislature = await GetAllPassedLegislatureAsync();
+            var bills = from b in legislature.Results.First().Bills
+                          select b;
+            return View(bills);
+        }
+        
+        // GET: Legislature
+        public async Task<IActionResult> VetoedLegislatureIndex()
+        {
+            var legislature = await GetAllVetoedLegislatureAsync();
+            var bills = from b in legislature.Results.First().Bills
+                          select b;
+            return View(bills);
+        }
 
         private async Task<Legislature> GetAllLegislatureAsync()
         {
             var key = _config["ApiKeys:CongressApi"];
             var url = $"{_allIntroducedLegislatureUrl}";
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
+            var response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var legislature = await response.Content.ReadAsAsync<Legislature>();
+                return legislature;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private async Task<Legislature> GetAllPassedLegislatureAsync()
+        {
+            var key = _config["ApiKeys:CongressApi"];
+            var url = $"{_allPassedLegislatureUrl}";
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
+            var response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var legislature = await response.Content.ReadAsAsync<Legislature>();
+                return legislature;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private async Task<Legislature> GetAllVetoedLegislatureAsync()
+        {
+            var key = _config["ApiKeys:CongressApi"];
+            var url = $"{_allVetoedLegislatureUrl}";
             var client = new HttpClient();
             client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
             var response = await client.GetAsync(url);
