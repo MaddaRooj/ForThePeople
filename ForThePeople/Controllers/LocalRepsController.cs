@@ -25,12 +25,14 @@ namespace ForThePeople.Controllers
         }
 
         // GET: LocalReps
+        // Add search string to index which will pass into GetAllLocalRepsAsync()
         public async Task<IActionResult> Index()
         {
             var localReps = await GetAllLocalRepsAsync();
             return View(localReps);
         }
 
+        // searchString will in theory alter the api get method to include the location in the url
         private async Task<LocalRep> GetAllLocalRepsAsync()
         {
             var key = _config["ApiKeys:GoogleCivicApi"];
