@@ -5,19 +5,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>House of Representatives</h1>
+<h1 style="font-family:'EB Garamond', serif; font-weight: 500">House of Representatives</h1>
 <br />
 
 @using (Html.BeginForm())
 {
-    <p>
+    <p style="font-family:'EB Garamond', serif; font-size: 20px">
         Find Representative by Name or State: @Html.TextBox("SearchString")
         <input type="submit" value="Search" />
     </p>
 }
 <br />
 
-<table class="table">
+<table style="font-family:'EB Garamond', serif; font-size: 18px" class="table">
     <thead>
         <tr>
             <th>
