@@ -17,6 +17,7 @@ namespace ForThePeople.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly string _allSenatorsUrl = "https://api.propublica.org/congress/v1/116/senate/members.json";
+        private readonly string _senatorUrl = "https://api.propublica.org/congress/v1/members/";
         private readonly IConfiguration _config;
 
         public SenateController(ApplicationDbContext context, IConfiguration config)
@@ -103,24 +104,24 @@ namespace ForThePeople.Controllers
             }
         }
 
-        //private async Task<ProPublica> GetSenatorAsync()
-        //{
-        //    var key = _config["ApiKeys:CongressApi"];
-        //    var url = $"{_senatorUrl}";
-        //    var client = new HttpClient();
-        //    client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
-        //    var response = await client.GetAsync(url);
+        private async Task<Result> GetSenatorAsync(string memberId)
+        {
+            var key = _config["ApiKeys:CongressApi"];
+            var url = $"{_senatorUrl}{memberId}.json";
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
+            var response = await client.GetAsync(url);
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var senator = await response.Content.ReadAsAsync<ProPublica>();
-        //        return senator;
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
+            if (response.IsSuccessStatusCode)
+            {
+                var senator = await response.Content.ReadAsAsync<Result>();
+                return senator;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         //public async Task<IActionResult> GetSenator()
         //{
@@ -128,21 +129,21 @@ namespace ForThePeople.Controllers
         //    return View(senator);
         //}
 
-        ////GET: ProPublicas/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //GET: ProPublicas/Details/5
+        public async Task<IActionResult> Details(string Id)
+        {
+            //if (memberId == null)
+            //{
+            //    return NotFound();
+            //}
 
-        //    var proPublica = await GetSenatorAsync().Result
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (proPublica == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(proPublica);
-        //}
+            var senator = await GetSenatorAsync(Id);
+
+            if (senator == null)
+            {
+                return NotFound();
+            }
+            return View(senator);
+        }
     }
 }
