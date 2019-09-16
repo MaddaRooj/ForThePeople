@@ -17,6 +17,7 @@ namespace ForThePeople.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly string _allHouseUrl = "https://api.propublica.org/congress/v1/116/house/members.json";
+        private readonly string _senatorUrl = "https://api.propublica.org/congress/v1/members/";
         private readonly IConfiguration _config;
 
         public HouseController(ApplicationDbContext context, IConfiguration config)
@@ -99,40 +100,40 @@ namespace ForThePeople.Controllers
             }
         }
 
-        ////GET: ProPublicas/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //GET: ProPublicas/Details/5
+        public async Task<IActionResult> Details(string Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
 
-        //    var proPublica = await GetSenatorAsync().Result
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (proPublica == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(proPublica);
-        //}
+            var member = await GetHouseMemberAsync(Id);
 
-        //private async Task<ProPublica> GetSenatorAsync()
-        //{
-        //    var key = _config["ApiKeys:CongressApi"];
-        //    var url = $"{_senatorUrl}";
-        //    var client = new HttpClient();
-        //    client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
-        //    var response = await client.GetAsync(url);
+            if (member == null)
+            {
+                return NotFound();
+            }
+            return View(member);
+        }
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var senator = await response.Content.ReadAsAsync<ProPublica>();
-        //        return senator;
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
+        private async Task<Result> GetHouseMemberAsync(string memberId)
+        {
+            var key = _config["ApiKeys:CongressApi"];
+            var url = $"{_senatorUrl}{memberId}.json";
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
+            var response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var member = await response.Content.ReadAsAsync<Result>();
+                return member;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
