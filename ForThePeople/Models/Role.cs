@@ -20,5 +20,6 @@ namespace ForThePeople.Models
         public string Phone { get; set; }
         public double Missed_Votes_Pct { get; set; }
         public double Votes_with_Party_Pct { get; set; }
+        public string Contact_Form { get; set; }
     }
 }

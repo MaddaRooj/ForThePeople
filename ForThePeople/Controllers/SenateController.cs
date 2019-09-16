@@ -123,19 +123,13 @@ namespace ForThePeople.Controllers
             }
         }
 
-        //public async Task<IActionResult> GetSenator()
-        //{
-        //    var senator = await GetSenatorAsync();
-        //    return View(senator);
-        //}
-
         //GET: ProPublicas/Details/5
         public async Task<IActionResult> Details(string Id)
         {
-            //if (memberId == null)
-            //{
-            //    return NotFound();
-            //}
+            if (Id == null)
+            {
+                return NotFound();
+            }
 
             var senator = await GetSenatorAsync(Id);
 
