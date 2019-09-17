@@ -49,7 +49,7 @@ namespace ForThePeople.Controllers
             {
                 _context.Add(note);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             return NotFound();
         }
@@ -63,7 +63,7 @@ namespace ForThePeople.Controllers
             {
                 _context.Add(note);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Legislature");
+                return RedirectToAction("Index", "Legislature");
             }
             return NotFound();
         }
@@ -83,7 +83,7 @@ namespace ForThePeople.Controllers
             }
             return View(note);
         }
-        
+
         // GET: Notes/EditLegislatureNote/5
         public async Task<IActionResult> EditLegislatureNote(int? id)
         {
@@ -193,7 +193,15 @@ namespace ForThePeople.Controllers
             var note = await _context.Note.FindAsync(id);
             _context.Note.Remove(note);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Senate");
+            if (note.LegislationId == null)
+            {
+                return RedirectToAction("Index", "Senate");
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Legislature");
+            }
         }
 
         // GET: Notes/Details/5
