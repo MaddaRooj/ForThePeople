@@ -17,6 +17,7 @@ namespace ForThePeople.Models
     {
         [Key]
         public string Bill_Id { get; set; }
+        public string Bill_Slug { get; set; }
         public string Title { get; set; }
         public string Short_Title { get; set; }
         public string Sponsor_Title { get; set; }

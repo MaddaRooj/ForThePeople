@@ -54,8 +54,38 @@ namespace ForThePeople.Controllers
             return NotFound();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateLegislatureNote([Bind("Title,Content,ApplicationUserId,LegislationId")] Note note)
+        {
+            note.ApplicationUserId = _userManager.GetUserId(HttpContext.User);
+            if (ModelState.IsValid)
+            {
+                _context.Add(note);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index","Legislature");
+            }
+            return NotFound();
+        }
+
         // GET: Notes/Edit/5
         public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var note = await _context.Note.FindAsync(id);
+            if (note == null)
+            {
+                return NotFound();
+            }
+            return View(note);
+        }
+        
+        // GET: Notes/EditLegislatureNote/5
+        public async Task<IActionResult> EditLegislatureNote(int? id)
         {
             if (id == null)
             {
@@ -101,6 +131,38 @@ namespace ForThePeople.Controllers
                     }
                 }
                 return RedirectToAction("Index", "Senate");
+            }
+            return View(note);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditLegislatureNote(int id, [Bind("Id,Title,Content,ApplicationUserId,LegislationId")] Note note)
+        {
+            if (id != note.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(note);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NoteExists(note.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "Legislature");
             }
             return View(note);
         }

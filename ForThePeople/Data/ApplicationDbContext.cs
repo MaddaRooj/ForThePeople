@@ -313,5 +313,7 @@ namespace ForThePeople.Data
         public DbSet<ForThePeople.Models.Legislature> Legislature { get; set; }
 
         public DbSet<ForThePeople.Models.Note> Note { get; set; }
+
+        public DbSet<ForThePeople.Models.Bill> Bill { get; set; }
     }
 }

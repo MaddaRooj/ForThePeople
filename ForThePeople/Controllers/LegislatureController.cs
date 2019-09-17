@@ -18,6 +18,7 @@ namespace ForThePeople.Controllers
         private readonly string _allIntroducedLegislatureUrl = "https://api.propublica.org/congress/v1/116/house/bills/active.json";
         private readonly string _allPassedLegislatureUrl = "https://api.propublica.org/congress/v1/116/house/bills/passed.json";
         private readonly string _allVetoedLegislatureUrl = "https://api.propublica.org/congress/v1/116/house/bills/vetoed.json";
+        private readonly string _specificLegislatureUrl = "https://api.propublica.org/congress/v1/116/bills/";
         private readonly IConfiguration _config;
 
         public LegislatureController(ApplicationDbContext context, IConfiguration config)
@@ -110,22 +111,40 @@ namespace ForThePeople.Controllers
             }
         }
 
-        //// GET: Legislatures/Details/5
-        //public async Task<IActionResult> Details(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        private async Task<Result> GetSpecificBillAsync(string billId)
+        {
+            var key = _config["ApiKeys:CongressApi"];
+            var url = $"{_specificLegislatureUrl}{billId}.json";
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
+            var response = await client.GetAsync(url);
 
-        //    var legislature = await _context.Legislature
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (legislature == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (response.IsSuccessStatusCode)
+            {
+                var bill = await response.Content.ReadAsAsync<Result>();
+                return bill;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
-        //    return View(legislature);
-        //}
+        // GET: Legislature/Details/5
+        public async Task<IActionResult> Details(string Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var legislature = await GetSpecificBillAsync(Id);
+            if (legislature == null)
+            {
+                return NotFound();
+            }
+
+            return View(legislature);
+        }
     }
 }
