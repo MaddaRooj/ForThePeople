@@ -131,6 +131,11 @@ namespace ForThePeople.Controllers
                 return NotFound();
             }
 
+            //var note = await _context.Note
+            //    .Include(m => m.ApplicationUserId)
+            //    .Include(m => m.RepId)
+            //    .FirstOrDefaultAsync(m => m.RepId == Id);
+
             var senator = await GetSenatorAsync(Id);
 
             if (senator == null)
