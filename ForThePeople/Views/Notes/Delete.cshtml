@@ -24,28 +24,16 @@
             @Html.DisplayFor(model => model.Content)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.RepId)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.RepId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BillId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BillId)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a href="https://localhost:5001/Senate/Details/@Model.RepId">Back to Record</a>
     </form>
 </div>

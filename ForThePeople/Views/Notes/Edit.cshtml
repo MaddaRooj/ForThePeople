@@ -23,20 +23,17 @@
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
+            <div class="form-group">             
+                <input hidden asp-for="ApplicationUserId" class="form-control" />
+                <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RepId" class="control-label"></label>
-                <input asp-for="RepId" class="form-control" />
+                <input hidden asp-for="RepId" class="form-control" />
                 <span asp-validation-for="RepId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="BillId" class="control-label"></label>
-                <input asp-for="BillId" class="form-control" />
-                <span asp-validation-for="BillId" class="text-danger"></span>
+            <div class="form-group">               
+                <input hidden asp-for="LegislationId" class="form-control" />
+                <span asp-validation-for="LegislationId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -46,7 +43,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="https://localhost:5001/Senate/Details/@Model.RepId">Back to Record</a>
 </div>
 
 @section Scripts {

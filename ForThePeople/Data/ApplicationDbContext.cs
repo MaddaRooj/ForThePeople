@@ -12,7 +12,6 @@ namespace ForThePeople.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        //public DbSet<Note> Note { get; set; }
         public DbSet<State> State { get; set; }
         public DbSet<PoliticalParty> PoliticalParty { get; set; }
 

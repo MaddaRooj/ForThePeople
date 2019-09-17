@@ -15,7 +15,7 @@ namespace ForThePeople.Models
         public List<Role> Roles { get; set; }
         public List<Committee> Committees { get; set; }
         public List<Result> Results { get; set; }
-
+        public Note Note { get; set; }
         public string First_Name { get; set; }
         public string Last_Name { get; set; }
         public string Full_Name

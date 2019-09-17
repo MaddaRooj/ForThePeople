@@ -14,8 +14,8 @@ namespace ForThePeople.Models
         public string Title { get; set; }
         public string Content { get; set; }
         [Required]
-        public string UserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public string RepId { get; set; }
-        public string BillId { get; set; }
+        public string LegislationId { get; set; }
     }
 }

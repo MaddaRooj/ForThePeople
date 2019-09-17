@@ -16,9 +16,9 @@ namespace ForThePeople.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _config;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public NotesController(ApplicationDbContext context, IConfiguration config, UserManager<ApplicationUser> userManager)
+        public NotesController(ApplicationDbContext context, IConfiguration config, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _config = config;
@@ -31,25 +31,7 @@ namespace ForThePeople.Controllers
             return View(await _context.Note.ToListAsync());
         }
 
-        // GET: Notes/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var note = await _context.Note
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (note == null)
-            {
-                return NotFound();
-            }
-
-            return View(note);
-        }
-
-        // GET: Notes/Create
+        //GET: Notes/Create
         public IActionResult Create()
         {
             return View();
@@ -60,15 +42,16 @@ namespace ForThePeople.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,UserId,RepId,BillId")] Note note)
+        public async Task<IActionResult> Create([Bind("Title,Content,ApplicationUserId,RepId")] Note note)
         {
+            note.ApplicationUserId = _userManager.GetUserId(HttpContext.User);
             if (ModelState.IsValid)
             {
                 _context.Add(note);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Senate");
             }
-            return View(note);
+            return NotFound();
         }
 
         // GET: Notes/Edit/5
@@ -92,7 +75,7 @@ namespace ForThePeople.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,UserId,RepId,BillId")] Note note)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,ApplicationUserId,RepId")] Note note)
         {
             if (id != note.Id)
             {
@@ -117,7 +100,7 @@ namespace ForThePeople.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Senate");
             }
             return View(note);
         }
@@ -148,7 +131,26 @@ namespace ForThePeople.Controllers
             var note = await _context.Note.FindAsync(id);
             _context.Note.Remove(note);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Senate");
+        }
+
+        // GET: Notes/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var note = await _context.Note
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (note == null)
+            {
+                return NotFound();
+            }
+
+            return View(note);
         }
 
         private bool NoteExists(int id)
