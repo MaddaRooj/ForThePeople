@@ -24,7 +24,7 @@
         </dl>
         <dl class="row">
             <dd class="col-sm-10">
-                <img width="225" height="275" src="@Url.Content("https://theunitedstates.io/images/congress/225x275/" + Model.Results.First().Member_Id + ".jpg")" alt="RepImage" />
+                <img style="border: 3px darkblue solid" width="225" height="275" src="@Url.Content("https://theunitedstates.io/images/congress/225x275/" + Model.Results.First().Member_Id + ".jpg")" alt="RepImage" />
             </dd>
         </dl>
         <dl class="row">
@@ -70,10 +70,8 @@
         <br />
         <br />
         <br />
-        <h3>Add a Note about @Html.DisplayFor(model => model.Results.First().Full_Name)</h3>
 
-        @* How do I select the ApplicationUserId if I don't have the value attached to the Rep *@
-        @* Why is my submit button trying to route me to the create form? *@
+        <h3>Add a Note about @Html.DisplayFor(model => model.Results.First().Full_Name)</h3>
         @using (Html.BeginForm("Create", "Notes", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <form asp-controller="Notes" asp-action="Create" style="border: 1px black solid; padding: 10px">
@@ -91,24 +89,23 @@
             </form>
         }
 
-            @foreach (var note in _context.Note.Where(n=> n.RepId == Model.Results.First().Member_Id))
-            {
-                <br />
-                <div class="card mb-1 border-dark">
-                    <div class="card-body">
-                        <a class="btn btn-sm btn-danger float-right ml-1" asp-controller="Notes" asp-action="Delete" asp-route-id="@note.Id">Delete</a>
-                        <a class="btn btn-sm btn-primary float-right" asp-controller="Notes" asp-action="Edit" asp-route-id="@note.Id">Edit</a>
-                        <h5 class="card-title">@note.Title</h5>
-                        <p class="card-text">@note.Content</p>
-                    </div>
+        @foreach (var note in _context.Note.Where(n => n.RepId == Model.Results.First().Member_Id && n.ApplicationUserId == userManager.GetUserId(User)))
+        {
+            <br />
+            <div class="card mb-1 border-dark">
+                <div class="card-body">
+                    <a class="btn btn-sm btn-danger float-right ml-1" asp-controller="Notes" asp-action="Delete" asp-route-id="@note.Id">Delete</a>
+                    <a class="btn btn-sm btn-primary float-right" asp-controller="Notes" asp-action="Edit" asp-route-id="@note.Id">Edit</a>
+                    <h5 class="card-title">@note.Title</h5>
+                    <p class="card-text">@note.Content</p>
                 </div>
-            }
+            </div>
+        }
 
     </div>
 </div>
 <hr />
 
 <div>
-    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
     <a asp-action="Index">Back to List</a>
 </div>

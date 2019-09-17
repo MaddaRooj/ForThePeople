@@ -49,7 +49,7 @@ namespace ForThePeople.Controllers
             {
                 _context.Add(note);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Senate");
+                return RedirectToAction("Index","Home");
             }
             return NotFound();
         }
