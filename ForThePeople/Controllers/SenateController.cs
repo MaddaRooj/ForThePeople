@@ -10,6 +10,7 @@ using ForThePeople.Models;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using X.PagedList;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ForThePeople.Controllers
 {
@@ -123,6 +124,7 @@ namespace ForThePeople.Controllers
             }
         }
 
+        [Authorize]
         //GET: ProPublicas/Details/5
         public async Task<IActionResult> Details(string Id)
         {

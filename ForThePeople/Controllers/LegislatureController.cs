@@ -9,6 +9,7 @@ using ForThePeople.Data;
 using ForThePeople.Models;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ForThePeople.Controllers
 {
@@ -130,6 +131,7 @@ namespace ForThePeople.Controllers
             }
         }
 
+        [Authorize]
         // GET: Legislature/Details/5
         public async Task<IActionResult> Details(string Id)
         {
