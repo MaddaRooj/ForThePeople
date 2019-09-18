@@ -88,7 +88,6 @@
                 <button type="submit" class="btn btn-outline-primary">Submit Note</button>
             </form>
         }
-
         @foreach (var note in _context.Note.Where(n => n.RepId == Model.Results.First().Member_Id && n.ApplicationUserId == userManager.GetUserId(User)))
         {
             <br />
@@ -101,7 +100,6 @@
                 </div>
             </div>
         }
-
     </div>
 </div>
 <hr />
