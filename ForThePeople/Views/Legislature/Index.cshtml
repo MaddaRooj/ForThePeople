@@ -112,8 +112,9 @@
                 </a>
             </p>
             <div>
-                <a class="btn btn-sm btn-danger float-right ml-1" asp-action="Details" asp-route-id="@item.Bill_Slug">Details</a>
+                <a class="btn btn-md btn-outline-success float-right ml-1" asp-action="Details" asp-route-id="@item.Bill_Slug">Details</a>
             </div>
+            <br />
             <br />
             <hr />
             @if(_context.Note.Where(n => n.LegislationId == item.Bill_Slug) != null)
