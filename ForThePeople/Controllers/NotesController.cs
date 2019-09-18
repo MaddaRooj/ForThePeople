@@ -119,6 +119,8 @@ namespace ForThePeople.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,ApplicationUserId,RepId")] Note note)
         {
+            var senator = await GetMemberAsync(note.RepId);
+
             if (id != note.Id)
             {
                 return NotFound();
@@ -142,7 +144,14 @@ namespace ForThePeople.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Senate");
+                if (senator.Results.First().Roles.First().Chamber == "Senate")
+                {
+                    return RedirectToAction("Details", "Senate", new { Id = senator.Results.First().Member_Id });
+                }
+                else
+                {
+                    return RedirectToAction("Details", "House", new { Id = senator.Results.First().Member_Id });
+                }
             }
             return View(note);
         }
