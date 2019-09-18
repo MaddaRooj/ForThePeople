@@ -1,4 +1,11 @@
 ﻿@model IEnumerable<ForThePeople.Models.Bill>
+@using Microsoft.AspNetCore.Identity
+@using System.Linq
+@using Microsoft.EntityFrameworkCore
+@using ForThePeople.Data
+
+@inject ApplicationDbContext  _context
+@inject UserManager<IdentityUser> userManager
 
 @{
     ViewData["Title"] = "Index";
@@ -75,7 +82,7 @@
                 </span>
                 @Html.DisplayFor(modelItem => item.Primary_Subject)
             </p>
-            @if(item.Last_Vote != null)
+            @if (item.Last_Vote != null)
             {
                 <p>
                     <span style="font-weight: 600">
@@ -104,8 +111,28 @@
                     @Html.DisplayFor(modelItem => item.Govtrack_Url)
                 </a>
             </p>
+            <div>
+                <a class="btn btn-sm btn-danger float-right ml-1" asp-action="Details" asp-route-id="@item.Bill_Slug">Details</a>
+            </div>
+            <br />
+            <hr />
+            @if(_context.Note.Where(n => n.LegislationId == item.Bill_Slug) != null)
+            {
+                <h4>Your Notes</h4>
+                @foreach (var note in _context.Note.Where(n => n.LegislationId == item.Bill_Slug && n.ApplicationUserId == userManager.GetUserId(User)))
+                {
+                    <br />
+                    <div class="card mb-1 border-dark">
+                        <div class="card-body">
+                            <a class="btn btn-sm btn-danger float-right ml-1" asp-controller="Notes" asp-action="Delete" asp-route-id="@note.Id">Delete</a>
+                            <a class="btn btn-sm btn-primary float-right" asp-controller="Notes" asp-action="EditLegislatureNote" asp-route-id="@note.Id">Edit</a>
+                            <h5 class="card-title">@note.Title</h5>
+                            <p class="card-text">@note.Content</p>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
     <hr />
 }
-                

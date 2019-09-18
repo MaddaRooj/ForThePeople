@@ -9,6 +9,7 @@ using ForThePeople.Data;
 using ForThePeople.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
+using System.Net.Http;
 
 namespace ForThePeople.Controllers
 {
@@ -17,6 +18,8 @@ namespace ForThePeople.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _config;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly string _senatorUrl = "https://api.propublica.org/congress/v1/members/";
+
 
         public NotesController(ApplicationDbContext context, IConfiguration config, UserManager<IdentityUser> userManager)
         {
@@ -44,18 +47,57 @@ namespace ForThePeople.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Content,ApplicationUserId,RepId")] Note note)
         {
+            var senator = await GetMemberAsync(note.RepId);
+            
             note.ApplicationUserId = _userManager.GetUserId(HttpContext.User);
             if (ModelState.IsValid)
             {
                 _context.Add(note);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Home");
+                if(senator.Results.First().Roles.First().Chamber == "Senate")
+                {
+                    return RedirectToAction("Details", "Senate", new { Id = senator.Results.First().Member_Id});
+                }
+                else
+                {
+                    return RedirectToAction("Details", "House", new { Id = senator.Results.First().Member_Id});
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateLegislatureNote([Bind("Title,Content,ApplicationUserId,LegislationId")] Note note)
+        {
+            note.ApplicationUserId = _userManager.GetUserId(HttpContext.User);
+            if (ModelState.IsValid)
+            {
+                _context.Add(note);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Legislature");
             }
             return NotFound();
         }
 
         // GET: Notes/Edit/5
         public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var note = await _context.Note.FindAsync(id);
+            if (note == null)
+            {
+                return NotFound();
+            }
+            return View(note);
+        }
+
+        // GET: Notes/EditLegislatureNote/5
+        public async Task<IActionResult> EditLegislatureNote(int? id)
         {
             if (id == null)
             {
@@ -105,6 +147,38 @@ namespace ForThePeople.Controllers
             return View(note);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditLegislatureNote(int id, [Bind("Id,Title,Content,ApplicationUserId,LegislationId")] Note note)
+        {
+            if (id != note.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(note);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NoteExists(note.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "Legislature");
+            }
+            return View(note);
+        }
+
         // GET: Notes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -129,9 +203,24 @@ namespace ForThePeople.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var note = await _context.Note.FindAsync(id);
+            var member = await GetMemberAsync(note.RepId);
             _context.Note.Remove(note);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Senate");
+            if (note.LegislationId == null)
+            {
+                if(member.Results.First().Roles.First().Chamber == "Senate")
+                {
+                    return RedirectToAction("Details", "Senate", new { Id = member.Results.First().Member_Id});
+                }
+                else
+                {
+                    return RedirectToAction("Details", "House", new { Id = member.Results.First().Member_Id});
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Legislature");
+            }
         }
 
         // GET: Notes/Details/5
@@ -156,6 +245,25 @@ namespace ForThePeople.Controllers
         private bool NoteExists(int id)
         {
             return _context.Note.Any(e => e.Id == id);
+        }
+
+        private async Task<Result> GetMemberAsync(string memberId)
+        {
+            var key = _config["ApiKeys:CongressApi"];
+            var url = $"{_senatorUrl}{memberId}.json";
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("x-api-key", $"{key}");
+            var response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var senator = await response.Content.ReadAsAsync<Result>();
+                return senator;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

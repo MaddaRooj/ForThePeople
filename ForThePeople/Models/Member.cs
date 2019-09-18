@@ -17,8 +17,8 @@ namespace ForThePeople.Models
         {
             get { return $"{First_Name} {Last_Name}"; }
         }
-        [DataType(DataType.Date)]
-        public DateTime Date_of_Birth { get; set; }
+        //[DataType(DataType.Date)]
+        public string Date_of_Birth { get; set; }
         public string Chamber { get; set; }
         public string State { get; set; }
         public int Seniority { get; set; }
