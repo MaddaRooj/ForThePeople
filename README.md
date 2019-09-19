@@ -1,6 +1,6 @@
 # For The People
 
-![ForThePeople](https://user-images.githubusercontent.com/38664958/65261562-2b889400-dace-11e9-8d69-47d3d4930ed9.png)
+![ForThePeople](https://user-images.githubusercontent.com/38664958/65261671-62f74080-dace-11e9-95ef-cda5450131a9.png)
 
 ## Problem
 ##### Everyone in the country knows who the President is, but do you know your senate members? Do you know who your House Representatives are? What about your local representatives? What is congress voting on today? Many people have no idea what their representatives are doing for them on a daily basis. With For The People you can explore all of your representatives, and know exactly what they are doing for their constituents on a daily basis. Take an active role in your country and community with one easy to access interface. 
