@@ -76,12 +76,15 @@
                 </span>
                 @Html.DisplayFor(modelItem => item.Sponsor_State)
             </p>
-            <p>
-                <span style="font-weight: 600">
-                    Subject:
-                </span>
-                @Html.DisplayFor(modelItem => item.Primary_Subject)
-            </p>
+            @if(item.Primary_Subject != "")
+            {
+                <p>
+                    <span style="font-weight: 600">
+                        Subject:
+                    </span>
+                    @Html.DisplayFor(modelItem => item.Primary_Subject)
+                </p>
+            }
             @if (item.Last_Vote != null)
             {
                 <p>
@@ -112,10 +115,10 @@
                 </a>
             </p>
             <div>
-                <a class="btn btn-md btn-outline-success float-right ml-1" asp-action="Details" asp-route-id="@item.Bill_Slug">Details</a>
+                <a class="btn btn-md btn-outline-success ml-1" asp-action="Details" asp-route-id="@item.Bill_Slug">Details</a>
             </div>
-            <br />
-            <br />
+            @*<br />*@
+            @*<br />*@
             <hr />
             @if(_context.Note.Where(n => n.LegislationId == item.Bill_Slug) != null)
             {

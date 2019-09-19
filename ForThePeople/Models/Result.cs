@@ -36,5 +36,6 @@ namespace ForThePeople.Models
         public string Sponsor_Title { get; set; }
         public string Sponsor { get; set; }
         public string Govtrack_Url { get; set; }
+        public string Congressdotgov_Url { get; set; }
     }
 }
