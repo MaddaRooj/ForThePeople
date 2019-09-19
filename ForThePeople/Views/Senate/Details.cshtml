@@ -91,12 +91,12 @@
         @foreach (var note in _context.Note.Where(n => n.RepId == Model.Results.First().Member_Id && n.ApplicationUserId == userManager.GetUserId(User)))
         {
             <br />
-            <div class="card mb-1 border-dark">
+            <div style="border: 2px solid darkblue" class="card mb-1">
                 <div class="card-body">
                     <a class="btn btn-sm btn-danger float-right ml-1" asp-controller="Notes" asp-action="Delete" asp-route-id="@note.Id">Delete</a>
                     <a class="btn btn-sm btn-primary float-right" asp-controller="Notes" asp-action="Edit" asp-route-id="@note.Id">Edit</a>
-                    <h5 class="card-title">@note.Title</h5>
-                    <p class="card-text">@note.Content</p>
+                    <h5 style="font-size:24px"class="card-title">@note.Title</h5>
+                    <p style="font-size: 18px"class="card-text">@note.Content</p>
                 </div>
             </div>
         }

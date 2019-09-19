@@ -5,8 +5,8 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
+<h1 style="font-family:'EB Garamond', serif;">@ViewData["Title"]</h1>
+<div style="font-family:'EB Garamond', serif;" class="row">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
@@ -31,10 +31,10 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                <div style="font-family:'EB Garamond', serif;" class="form-group">
+                    <button type="submit" class="btn btn-outline-primary">Log in</button>
                 </div>
-                <div class="form-group">
+                <div style="font-family:'EB Garamond', serif;" class="form-group">
                     <p>
                         <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                     </p>
@@ -45,7 +45,7 @@
             </form>
         </section>
     </div>
-    <div class="col-md-6 col-md-offset-2">
+    @*<div class="col-md-6 col-md-offset-2">
         <section>
             <h4>Use another service to log in.</h4>
             <hr />
@@ -74,7 +74,7 @@
                 }
             }
         </section>
-    </div>
+    </div>*@
 </div>
 
 @section Scripts {

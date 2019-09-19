@@ -4,11 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Note</h4>
+<h1 style="font-family:'EB Garamond', serif;">Edit your Note?</h1>
 <hr />
-<div class="row">
+<div style="font-family:'EB Garamond', serif;" class="row">
     <div class="col-md-4">
         <form asp-action="EditLegislatureNote">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -36,13 +34,13 @@
                 <span asp-validation-for="LegislationId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-outline-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
+<div style="font-family:'EB Garamond', serif;">
     <a href="https://localhost:5001/Legislature">Back to Record</a>
 </div>
 
