@@ -17,8 +17,6 @@
 - ProPublica Congress API
 - Google Civic API
 
-## MVP
-
 Features:
 
 - User Authentication
@@ -28,5 +26,6 @@ Features:
 - See a list of all legislature being proposed on a daily basis
 - See a list of all passed and vetoed legislature
 - Add notes on individual representatives or legislature in order to keep track of your own thoughts/research
+
 
 Shoutout to my mentor Adam Sheaffer for all of his help through this process.
