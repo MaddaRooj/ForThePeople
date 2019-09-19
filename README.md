@@ -22,7 +22,7 @@ Features:
 - User Authentication
 - View a List of all active Senate members
 - View a List of all active House Representatives
-- Search for your city and see a List of your Local Representatives, County Commisioners, Mayor, Sheriff, District Attorney, etc.
+- Search for your City and see a List of your Local Representatives: County Commisioners, Mayor, Sheriff, District Attorney, etc.
 - See a list of all legislature being proposed on a daily basis
 - See a list of all passed and vetoed legislature
 - Add notes on individual representatives or legislature in order to keep track of your own thoughts/research
