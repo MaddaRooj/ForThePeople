@@ -32,7 +32,7 @@ namespace ForThePeople.Controllers
             return View(localReps);
         }
 
-        // searchString will in theory alter the api get method to include the location in the url
+        // searchString will alter the api get method to include the location in the url
         private async Task<LocalRep> GetAllLocalRepsAsync(string searchString)
         {
             var key = _config["ApiKeys:GoogleCivicApi"];
@@ -58,23 +58,5 @@ namespace ForThePeople.Controllers
                 return null;
             }
         }
-
-        // GET: LocalReps/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var localRep = await _context.LocalRep
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (localRep == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(localRep);
-        //}
     }
 }
