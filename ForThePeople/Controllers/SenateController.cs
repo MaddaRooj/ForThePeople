@@ -40,7 +40,7 @@ namespace ForThePeople.Controllers
             //Declares variable senate and gets all senators from api
             var senate = await GetAllSenatorsAsync();
 
-            //TEST
+            // If there is no search input then begin on page 1, else filter by search params
             if (searchString != null)
             {
                 page = 1;
@@ -55,7 +55,7 @@ namespace ForThePeople.Controllers
             var members = from m in senate.Results.First().Members
                           select m;
 
-            // Search input parameters
+            // Search input LINQ parameters
             if (!String.IsNullOrEmpty(searchString))
             {
                 members = members.Where(m => m.Last_Name.Contains(searchString)
@@ -64,6 +64,7 @@ namespace ForThePeople.Controllers
                                        || m.State.Contains(searchString));
             }
 
+            // Switch statement for sorting functionality
             switch (sortOrder)
             {
                 case "name_desc":
@@ -80,12 +81,13 @@ namespace ForThePeople.Controllers
                     break;
             }
 
+            // Detemines number of results per page and initial page view
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            //return View(members);
             return View(members.ToPagedList(pageNumber, pageSize));
         }
 
+        // API query that will return all US senators
         private async Task<Senate> GetAllSenatorsAsync()
         {
             var key = _config["ApiKeys:CongressApi"];
@@ -105,6 +107,8 @@ namespace ForThePeople.Controllers
             }
         }
 
+
+        // API query that will get a specific senator
         private async Task<Result> GetSenatorAsync(string memberId)
         {
             var key = _config["ApiKeys:CongressApi"];
@@ -124,8 +128,8 @@ namespace ForThePeople.Controllers
             }
         }
 
+        //Returns details view for a specific Senator
         [Authorize]
-        //GET: ProPublicas/Details/5
         public async Task<IActionResult> Details(string Id)
         {
             if (Id == null)

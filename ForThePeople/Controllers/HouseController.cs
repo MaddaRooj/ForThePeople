@@ -30,7 +30,6 @@ namespace ForThePeople.Controllers
         // GET: House of Representatives
         public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
-            //TEST
             ViewBag.CurrentSort = sortOrder;
 
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -38,7 +37,7 @@ namespace ForThePeople.Controllers
 
             var senate = await GetAllHouseMembersAsync();
 
-            //TEST
+            // If there is no search input then begin on page 1, else filter by search params
             if (searchString != null)
             {
                 page = 1;
@@ -49,9 +48,11 @@ namespace ForThePeople.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
+            //Sets all members to members variable
             var members = from m in senate.Results.First().Members
                           select m;
 
+            // Search input LINQ parameters
             if (!String.IsNullOrEmpty(searchString))
             {
                 members = members.Where(m => m.Last_Name.Contains(searchString)
@@ -60,6 +61,7 @@ namespace ForThePeople.Controllers
                                        || m.State.Contains(searchString));
             }
 
+            // Switch statement for sorting functionality
             switch (sortOrder)
             {
                 case "name_desc":
@@ -76,12 +78,13 @@ namespace ForThePeople.Controllers
                     break;
             }
 
+            // Detemines number of results per page and initial page view
             int pageSize = 15;
             int pageNumber = (page ?? 1);
-            //return View(members);
             return View(members.ToPagedList(pageNumber, pageSize));
         }
 
+        // API query that will return all US House Reps
         private async Task<House> GetAllHouseMembersAsync()
         {
             var key = _config["ApiKeys:CongressApi"];
@@ -101,24 +104,7 @@ namespace ForThePeople.Controllers
             }
         }
 
-        [Authorize]
-        //GET: ProPublicas/Details/5
-        public async Task<IActionResult> Details(string Id)
-        {
-            if (Id == null)
-            {
-                return NotFound();
-            }
-
-            var member = await GetHouseMemberAsync(Id);
-
-            if (member == null)
-            {
-                return NotFound();
-            }
-            return View(member);
-        }
-
+        // API query that will get a specific House Representative
         private async Task<Result> GetHouseMemberAsync(string memberId)
         {
             var key = _config["ApiKeys:CongressApi"];
@@ -136,6 +122,25 @@ namespace ForThePeople.Controllers
             {
                 return null;
             }
+        }
+
+
+        // Returns details view for a specific House rep
+        [Authorize]
+        public async Task<IActionResult> Details(string Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var member = await GetHouseMemberAsync(Id);
+
+            if (member == null)
+            {
+                return NotFound();
+            }
+            return View(member);
         }
     }
 }

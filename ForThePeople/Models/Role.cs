@@ -21,5 +21,6 @@ namespace ForThePeople.Models
         public double Missed_Votes_Pct { get; set; }
         public double Votes_with_Party_Pct { get; set; }
         public string Contact_Form { get; set; }
+        public string End_Date { get; set; }
     }
 }

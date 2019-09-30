@@ -13,7 +13,6 @@ namespace ForThePeople.Models
         public List<Member> Members { get; set; }
         public List<Bill> Bills { get; set; }
         public List<Role> Roles { get; set; }
-        //public List<Committee> Committees { get; set; }
         public List<Result> Results { get; set; }
         public Note Note { get; set; }
         public string First_Name { get; set; }
